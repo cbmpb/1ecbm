@@ -183,7 +183,7 @@ footer span{color:var(--amar);}
 </footer>
 
 <script>
-var SID = '112htcChpKcOm-jy_p_nBOq6c0hDOOM_qr6CMht7KWGg';
+var SID = '';
 
 var DD = {
   formularios:[
@@ -234,7 +234,8 @@ var DD = {
 };
 
 function rForms(d){document.getElementById('gf').innerHTML=d.map(function(f){return f.ok?'<a class="cf" href="'+f.l+'" target="_blank"><div class="fi">&#128221;</div><h3>'+f.t+'</h3><p>'+f.d+'</p><span class="bf r">&#8594; Acessar Formul&#225;rio</span></a>':'<div class="cf off"><div class="fi">&#128196;</div><span class="tb">Em breve</span><h3>'+f.t+'</h3><p>'+f.d+'</p></div>';}).join('');}
-function rAgend(d){document.getElementById('ga').innerHTML=d.map(function(a){return'<a class="cf ag" href="'+a.l+'" target="_blank"><div class="fi">'+a.i+'</div><h3>'+a.t+'</h3><p>'+a.d+'</p><span class="bf b">&#8594; Fazer Agendamento</span></a>';}).join('');}
+var ICONES_AGEND={'biblioteca':'📚','robótica':'🤖','robotica':'🤖','excursões':'🚌','excursoes':'🚌','quadra':'🏀','cessão de espaço':'🏫','cessao de espaco':'🏫','videoteca':'🎬'};
+function rAgend(d){document.getElementById('ga').innerHTML=d.map(function(a){var icone=ICONES_AGEND[a.t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')]||ICONES_AGEND[a.t.toLowerCase()]||'📋';var link=a.l&&a.l!=='#'&&a.l!==''?a.l:'#';var tag=link!=='#'?'a class="cf ag" href="'+link+'" target="_blank"':'a class="cf ag" href="#" onclick="return false"';return'<'+tag+'><div class="fi">'+icone+'</div><h3>'+a.t+'</h3><p>'+a.d+'</p><span class="bf b">&#8594; Fazer Agendamento</span></a>';}).join('');}
 function rAvisos(d){document.getElementById('lav').innerHTML=d.map(function(a){return'<li class="ai"><div class="ad">'+a.dia+'<br>'+a.mes+'</div><p><strong>'+a.t+'</strong> &#8212; '+a.tx+'</p></li>';}).join('');}
 function rAgenda(d){document.getElementById('lag').innerHTML=d.map(function(a){return'<li class="agi"><span class="agm">'+a.m+'</span><span>'+a.d+'</span></li>';}).join('');}
 function rTel(d){document.getElementById('ltel').innerHTML=d.map(function(t){return'<li><div><div class="s">'+t.s+'</div></div><div class="n">'+t.n+'</div></li>';}).join('');}
@@ -242,12 +243,13 @@ function rDl(d){document.getElementById('ldl').innerHTML=d.map(function(x){retur
 function rRedes(d){document.getElementById('br').innerHTML='<p style="font-size:12px;color:#666;margin-bottom:10px;">Acompanhe a escola e o CBMPB nas redes:</p><div class="rg">'+d.map(function(r){return'<a href="'+r.l+'" target="_blank" class="rb '+r.c+'">'+r.n+'</a>';}).join('')+'</div>';}
 
 function rGal(fotos){
-  if(fotos&&fotos.length){
-    document.getElementById('gg').innerHTML=fotos.map(function(f){return'<img class="foto-real" src="'+f+'" alt="Foto da escola" loading="lazy">';}).join('');
+  var validas=(fotos||[]).filter(function(f){return f&&f.startsWith('http');});
+  if(validas.length){
+    document.getElementById('gg').innerHTML=validas.map(function(f){return'<img class="foto-real" src="'+f+'" alt="Foto da escola" loading="lazy" onerror="this.parentNode.innerHTML=\'<div class=fs>&#128247;</div>\'">';}).join('');
     document.getElementById('gl').textContent='';
   }else{
     document.getElementById('gg').innerHTML=Array(6).fill('<div class="fs">&#128247;</div>').join('');
-    document.getElementById('gl').textContent='Fotos serão adicionadas em breve';
+    document.getElementById('gl').textContent='Fotos ser\u00e3o adicionadas em breve';
   }
 }
 
@@ -268,7 +270,7 @@ function pCsv(csv){
 async function load(){
   if(!SID){demo('demo');return;}
   setSt('loading','Conectando à planilha…');
-  var abas=['avisos','agenda','telefones','downloads','formularios','agendamentos','redes','fotos'],res={};
+  var abas=['avisos','agenda','telefones','downloads','formularios','agendamentos','redes'],res={};
   try{
     for(var i=0;i<abas.length;i++){
       var ab=abas[i],r=await fetch('https://docs.google.com/spreadsheets/d/'+SID+'/gviz/tq?tqx=out:csv&sheet='+ab);

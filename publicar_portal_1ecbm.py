@@ -51,7 +51,6 @@ def publicar():
     status = rodar(["git", "status", "--porcelain"], PASTA)
     if not status:
         print("✅ Nenhuma alteração detectada. O site já está atualizado.")
-        input("\nPressione Enter para fechar...")
         return
 
     # Git commit
@@ -67,8 +66,6 @@ def publicar():
     print("\n✅ Portal publicado com sucesso!")
     print("🌐 Acesse: https://cbmpb.github.io/1ecbm")
     print("\nAguarde cerca de 1 minuto para o site atualizar.")
-
-    input("\nPressione Enter para fechar...")
 
 if __name__ == "__main__":
     publicar()
