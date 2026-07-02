@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import gspread\")",
+      "Bash(python -c \"import google.oauth2\")",
+      "Bash(python -c ' *)",
+      "Bash(pip install *)",
+      "Bash(mv credenciais.json.json credenciais.json && ls credenciais.json)",
+      "Bash(python configurar_planilha.py)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"https://docs.google.com/spreadsheets/d/112htcChpKcOm-jy_p_nBOq6c0hDOOM_qr6CMht7KWGg/gviz/tq?tqx=out:csv&sheet=formularios\")"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\rault\\Documents\\Dev\\portal-1ecbm"
+    ]
+  }
+}

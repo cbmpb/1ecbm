@@ -183,7 +183,7 @@ footer span{color:var(--amar);}
 </footer>
 
 <script>
-var SID = '';
+var SID = '112htcChpKcOm-jy_p_nBOq6c0hDOOM_qr6CMht7KWGg';
 
 var DD = {
   formularios:[
@@ -268,7 +268,7 @@ function pCsv(csv){
 async function load(){
   if(!SID){demo('demo');return;}
   setSt('loading','Conectando à planilha…');
-  var abas=['avisos','agenda','telefones','downloads','formularios','agendamentos','redes'],res={};
+  var abas=['avisos','agenda','telefones','downloads','formularios','agendamentos','redes','fotos'],res={};
   try{
     for(var i=0;i<abas.length;i++){
       var ab=abas[i],r=await fetch('https://docs.google.com/spreadsheets/d/'+SID+'/gviz/tq?tqx=out:csv&sheet='+ab);
